@@ -45,10 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CandyBag.cs" />
     <Compile Include="CandyType.cs" />
     <Compile Include="DatabaseContext.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="User.cs" />
     <Compile Include="View.cs" />
   </ItemGroup>
   <ItemGroup>

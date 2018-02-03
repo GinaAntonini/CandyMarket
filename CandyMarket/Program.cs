@@ -11,6 +11,18 @@ namespace CandyMarket
         static void Main(string[] args)
         {
             // wanna be a l33t h@x0r? skip all this console menu nonsense and go with straight command line arguments. something like `candy-market add taffy "blueberry cheesecake" yesterday`
+
+            var Gina = new User("Gina");
+            var David = new User("David");
+            var Alex = new User("Alex");
+
+            var GinasCandyBag = new CandyBag();
+            GinasCandyBag.Owner = Gina;
+            var bag = new Dictionary<CandyType, int>();
+            bag.Add((CandyType)1, 5);
+            GinasCandyBag.Bag = bag;
+
+       
             var db = SetupNewApp();
 
             var run = true;
@@ -107,6 +119,7 @@ namespace CandyMarket
                     .AddMenuOption("Did you just get some new candy? Add it here.")
                     .AddMenuOption("Do you want to eat some candy? Take it here.")
                     .AddMenuOption("Want to throw away some candy? Toss it out here.")
+                    .AddMenuOption("Shall you give some candy to another user? Give it here.")
                     .AddMenuText("Press 0 to exit.");
 
             Console.Write(mainMenu.GetFullMenu());
@@ -156,9 +169,19 @@ namespace CandyMarket
             return selectedCandyTypeToTrash;
         }
 
-        private static object AddNewCandyTypeToGive(DatabaseContext db)
+        static ConsoleKeyInfo AddNewCandyTypeToGive(DatabaseContext db)
         {
-            throw new NotImplementedException();
+            var candyTypes = db.GetCandyTypes();
+
+            var newCandyMenu = new View()
+                .AddMenuText("What type of candy do you want to give away?")
+                .AddMenuOptions(candyTypes);
+
+            Console.Write(newCandyMenu.GetFullMenu());
+
+            ConsoleKeyInfo selectedCandyTypeToGive = Console.ReadKey();
+            return selectedCandyTypeToGive;
         }
+
     }
 }
