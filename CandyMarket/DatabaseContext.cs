@@ -1,4 +1,4 @@
-﻿
+﻿using Humanizer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,6 +51,32 @@ namespace CandyMarket
                     break;
                 case CandyType.ZagnutStyle:
                     ++_countOfZagnut;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        internal void EatCandy(char selectedCandyMenuOptionToEat)
+        {
+            var candyOption = int.Parse(selectedCandyMenuOptionToEat.ToString());
+
+            var maybeCandyMaybeNot = (CandyType)selectedCandyMenuOptionToEat;
+            var forRealTheCandyThisTime = (CandyType)candyOption;
+
+            switch (forRealTheCandyThisTime)
+            {
+                case CandyType.TaffyNotLaffy:
+                    --_countOfTaffy;
+                    break;
+                case CandyType.CandyCoated:
+                    --_countOfCandyCoated;
+                    break;
+                case CandyType.CompressedSugar:
+                    --_countOfChocolateBar;
+                    break;
+                case CandyType.ZagnutStyle:
+                    --_countOfZagnut;
                     break;
                 default:
                     break;

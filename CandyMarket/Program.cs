@@ -38,14 +38,19 @@ namespace CandyMarket
                         break;
                     case '2':
                         /** eat candy
+                         * 
 						 * select a candy type
 						 * 
 						 * select specific candy details to eat from list filtered to selected candy type
 						 * 
 						 * enjoy candy
 						 */
+                        var selectedCandyTypeToEat = AddNewCandyTypeToEat(db);
+
+                        db.EatCandy(selectedCandyTypeToEat.KeyChar);
                         break;
                     case '3':
+                       
                         /** throw away candy
 						 * select a candy type
 						 * if(moreDifficultDataModel) enhancement - give user the option to throw away old candy in one action. this would require capturing the detail of when the candy was new.
@@ -77,9 +82,11 @@ namespace CandyMarket
             }
         }
 
+
+
         static DatabaseContext SetupNewApp()
         {
-            Console.Title = "Cross Confectioneries Incorporated";
+            Console.Title = "Gina's Candy";
 
             var cSharp = 554;
             var db = new DatabaseContext(tone: cSharp);
@@ -96,6 +103,7 @@ namespace CandyMarket
             View mainMenu = new View()
                     .AddMenuOption("Did you just get some new candy? Add it here.")
                     .AddMenuOption("Do you want to eat some candy? Take it here.")
+                    .AddMenuOption("Want to throw away some candy? Toss it out here.")
                     .AddMenuText("Press 0 to exit.");
 
             Console.Write(mainMenu.GetFullMenu());
@@ -115,6 +123,20 @@ namespace CandyMarket
 
             ConsoleKeyInfo selectedCandyType = Console.ReadKey();
             return selectedCandyType;
+        }
+
+        static ConsoleKeyInfo AddNewCandyTypeToEat(DatabaseContext db)
+        {
+            var candyTypes = db.GetCandyTypes();
+
+            var newCandyMenu = new View()
+                .AddMenuText("What type of candy did you eat?")
+                .AddMenuOptions(candyTypes);
+
+            Console.Write(newCandyMenu.GetFullMenu());
+
+            ConsoleKeyInfo selectedCandyTypeToEat = Console.ReadKey();
+            return selectedCandyTypeToEat;
         }
     }
 }
