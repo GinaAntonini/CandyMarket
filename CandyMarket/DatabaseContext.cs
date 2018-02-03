@@ -14,6 +14,16 @@ namespace CandyMarket
         private int _countOfChocolateBar;
         private int _countOfZagnut;
 
+        Dictionary<string, int> candyUser = new Dictionary<string, int>
+        {
+            { "David", 2 },
+            { "Gina", 3 },
+            { "Alex", 5 },
+            { "Jessica", 2 }
+        };
+
+        
+
         /**
 		 * this is just an example.
 		 * feel free to modify the definition of this collection "BagOfCandy" if you choose to implement the more difficult data model.
@@ -30,6 +40,7 @@ namespace CandyMarket
                     candyType.Humanize(LetterCasing.Title))
                 .ToList();
         }
+
 
         internal void SaveNewCandy(char selectedCandyMenuOption)
         {
@@ -62,6 +73,32 @@ namespace CandyMarket
             var candyOption = int.Parse(selectedCandyMenuOptionToEat.ToString());
 
             var maybeCandyMaybeNot = (CandyType)selectedCandyMenuOptionToEat;
+            var forRealTheCandyThisTime = (CandyType)candyOption;
+
+            switch (forRealTheCandyThisTime)
+            {
+                case CandyType.TaffyNotLaffy:
+                    --_countOfTaffy;
+                    break;
+                case CandyType.CandyCoated:
+                    --_countOfCandyCoated;
+                    break;
+                case CandyType.CompressedSugar:
+                    --_countOfChocolateBar;
+                    break;
+                case CandyType.ZagnutStyle:
+                    --_countOfZagnut;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        internal void TrashCandy(char selectedCandyMenuOptionToTrash)
+        {
+            var candyOption = int.Parse(selectedCandyMenuOptionToTrash.ToString());
+
+            var maybeCandyMaybeNot = (CandyType)selectedCandyMenuOptionToTrash;
             var forRealTheCandyThisTime = (CandyType)candyOption;
 
             switch (forRealTheCandyThisTime)

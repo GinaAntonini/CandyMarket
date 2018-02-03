@@ -46,11 +46,10 @@ namespace CandyMarket
 						 * enjoy candy
 						 */
                         var selectedCandyTypeToEat = AddNewCandyTypeToEat(db);
-
                         db.EatCandy(selectedCandyTypeToEat.KeyChar);
                         break;
                     case '3':
-                       
+
                         /** throw away candy
 						 * select a candy type
 						 * if(moreDifficultDataModel) enhancement - give user the option to throw away old candy in one action. this would require capturing the detail of when the candy was new.
@@ -59,6 +58,8 @@ namespace CandyMarket
 						 * 
 						 * cry for lost candy
 						 */
+                        var selectedCandyTypeToTrash = AddNewCandyTypeToTrash(db);
+                        db.TrashCandy(selectedCandyTypeToTrash.KeyChar);
                         break;
                     case '4':
                         /** give candy
@@ -70,6 +71,8 @@ namespace CandyMarket
 						 * you'll need a way to select what user you're giving candy to.
 						 * one design suggestion would be to put candy "on the table" and then "give the candy on the table" to another user once you've selected all the candy to give away
 						 */
+                        var selectedCandyTypeToGive = AddNewCandyTypeToGive(db);
+
                         break;
                     case '5':
                         /** trade candy
@@ -82,7 +85,7 @@ namespace CandyMarket
             }
         }
 
-
+        
 
         static DatabaseContext SetupNewApp()
         {
@@ -137,6 +140,25 @@ namespace CandyMarket
 
             ConsoleKeyInfo selectedCandyTypeToEat = Console.ReadKey();
             return selectedCandyTypeToEat;
+        }
+
+         static ConsoleKeyInfo AddNewCandyTypeToTrash(DatabaseContext db)
+        {
+            var candyTypes = db.GetCandyTypes();
+
+            var newCandyMenu = new View()
+                .AddMenuText("What type of candy do you want to trash?")
+                .AddMenuOptions(candyTypes);
+
+            Console.Write(newCandyMenu.GetFullMenu());
+
+            ConsoleKeyInfo selectedCandyTypeToTrash = Console.ReadKey();
+            return selectedCandyTypeToTrash;
+        }
+
+        private static object AddNewCandyTypeToGive(DatabaseContext db)
+        {
+            throw new NotImplementedException();
         }
     }
 }
